@@ -4,9 +4,9 @@ The data come from looking time experiments in peahens outfitted with eye tracke
 
 # Files and Data
 The repo contains three file types:
-- `.R` files containing data in R's `dump` function. That is, `source`ing the relevant file will load the variables.
+- `.R` files containing data in R's `dump` function format. That is, `source`ing the relevant file will load the variables.
 - `.bug` files are files specifying the hierarchical models in JAGS/BUGS format. Model details are given in the paper, but the files are lightly commented, as well. Models are only tested with JAGS. Models including subject eye (which one was being tracked) as a factor include the `_eye` suffix. Models excluding female identity (treating male, and not video clip, as the sampling unit) include the `_nofem` suffix. Data files are named likewise.
-- `run_peafowl_model.R` Performs model fitting and saves csv files of quantiles for variables of interest and plots generated.
+- `run_peafowl_model.R` Performs model fitting and saves csv files of quantiles for variables of interest and plots of actual vs simulated data from the model.
 
 # Dependencies and Running
 - The code relies on the `rjags` and `ggplot2` packages.
