@@ -1,0 +1,45 @@
+model { #for use on peahen data
+      	#this model is a standard overdispersed poisson,
+        #but it excludes female as a variable
+      	
+  	# standard deviation/precision for male variability
+	mstd ~ dunif(0,4)
+	mprec <- pow(mstd,-2)
+
+	# random effects for males
+	for (ind in 1:nmale){
+	    mval[ind] ~ dnorm(0,mprec)
+	}
+
+	# effects for individual ROIs
+	for (ind in 1:nroi){
+	    beta[ind] ~ dnorm(0,1e-2)
+	}
+
+	# overdispersion
+	odstd ~ dunif(0,4)  #overdispersion
+	odprec <- pow(odstd,-2)
+
+	# loop over trials
+	for (ind in 1:length(ntot)){
+
+	    # trial-to-trial variation
+	    eps[ind] ~ dnorm(0,odprec)
+
+            # as explained in the paper, pixel size and total looking time are offsets
+	    log(lambda[ind]) <- log(ntot[ind]) + log(pix[ind]) + mval[male[ind]] + beta[roi[ind]] + eps[ind]
+
+            # fixation counts
+	    count[ind] ~ dpois(lambda[ind])
+
+	    # simulated data
+	    psi[ind] ~ dnorm(0,odprec)
+	    log(L[ind]) <- log(ntot[ind]) + log(pix[ind]) + mval[male[ind]] + beta[roi[ind]] + psi[ind]
+	    N[ind] ~ dpois(L[ind]) 
+	}
+	
+	#now draw some things that are useful
+	B <- beta - mean(beta)	
+	M <- mean(beta)
+
+}
