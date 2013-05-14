@@ -13,7 +13,7 @@ load.module('glm')
 # 2 = Negative Binomial
 # 3 = OD Poisson (include eye as a factor)
 # 4 = OD Poisson (exclude female effects)
-model = 3
+model = 1
 
 # 2) Now choose a side of the bird (0 = back, 1 = front):
 side = 1
@@ -59,8 +59,7 @@ if (model==1){
   qnames = c(d$roinames,'Mean',paste('plook',d$roinames),c('female std','male std'))
   x <- coda.samples(m, c('beta','mstd','fstd','r','B','N','lp','M'), n.iter=20000,thin=100)
 } else if (model==3){
-  bnames = paste(rep(d$roinames,2),rep(c('L','R'),each=length(d$roinames)),sep='')
-  qnames = c(bnames,'Mean',c('female std','male std','disp std'))
+  qnames = c(d$roinames,'Mean','Eye',c('female std','male std','disp std'))
   x <- coda.samples(m, c('beta','mstd','fstd','odstd','B','N','M','E','C'), n.iter=8000,thin=40)
 } else if (model==4){
   qnames = c(d$roinames,'Mean',c('male std','disp std'))
@@ -76,7 +75,7 @@ ff=effectiveSize(x)
 xx = do.call(rbind,x)
 
 # 7) Grab quantiles for most the important variables:
-sel=grepl('B',rownames(qq))|grepl('M',rownames(qq))|grepl('lp',rownames(qq))|grepl('std',rownames(qq))|grepl('E',rownames(qq))
+sel=grepl('B',rownames(qq))|grepl('M',rownames(qq))|grepl('E',rownames(qq))|grepl('lp',rownames(qq))|grepl('std',rownames(qq))
 post.quants=qq[sel,] #posterior quantiles
 rownames(post.quants) <- qnames #label correctly
 write.table(post.quants,file=paste(paste('quants',setstr,modstr,sep='_'),'.csv',sep=''),
