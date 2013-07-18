@@ -10,5 +10,5 @@ The repo contains three file types:
 
 # Dependencies and Running
 - The code relies on the `rjags` and `ggplot2` packages.
-- `run_peafowl_model.R` has two settable parameters, `model` and `side` that determine which model is run and whether the data used are for the peacock as viewed from in front or behind. 
+- `run_peafowl_model.R` has two settable parameters, `model` and `side`, that determine which model is run and whether the data used are for the peacock as viewed from in front or behind. 
 
