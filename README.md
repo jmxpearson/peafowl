@@ -1,5 +1,5 @@
 # Introduction
-This repo contains code for the Bayesian hierarchical models for peahen looking data published in [this paper](this link goes nowhere yet).
+This repo contains code for the Bayesian hierarchical models for peahen looking data published in [this paper](http://jeb.biologists.org/content/216/16/3035.abstract).
 The data come from looking time experiments in peahens outfitted with eye trackers. Outcomes are the number of times a given peahen fixated on a given region of a peacock in a fixed amount of time. Inputs include the male and female identities, total frames of looking time, number of fixations for each location (region of interest = ROI), and relative size of each ROI.
 
 # Files and Data
